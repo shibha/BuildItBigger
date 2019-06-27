@@ -1,0 +1,2 @@
+include ':app', ':backend', ':telljoke', ':displayjokes'
+include ':app', ':javaJokes'
