@@ -1,12 +1,9 @@
 package com.udacity.gradle.builditbigger.tasks;
 
-import java.util.concurrent.CountDownLatch;
-import java.util.concurrent.TimeUnit;
-
 import android.content.Context;
-import android.support.test.runner.AndroidJUnit4;
-import android.util.Log;
 import android.util.Pair;
+
+import androidx.test.internal.runner.junit4.AndroidJUnit4ClassRunner;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -15,7 +12,7 @@ import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.mock;
 
 
-@RunWith(AndroidJUnit4.class)
+@RunWith(AndroidJUnit4ClassRunner.class)
 public class EndpointsAsyncTaskTest  {
 
     @Test
@@ -24,7 +21,8 @@ public class EndpointsAsyncTaskTest  {
         final Object syncObject = new Object();
         Context context = mock(Context.class);
         EndpointsAsyncTestTask task = new EndpointsAsyncTestTask();
-        task.execute(new Pair<Context, String>(context, "ManfredTest"));
+        task.execute(new Pair<Context, String>(context, "DefaultTest"));
+
 
         task.setAsyncTaskCallback(new EndpointsAsyncTestTask.AsyncTaskCallBack() {
             @Override

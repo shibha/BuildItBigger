@@ -6,17 +6,18 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath 'com.google.cloud.tools:endpoints-framework-gradle-plugin:1.0.2'
+        classpath 'com.google.cloud.tools:endpoints-framework-gradle-plugin:2.0.1'
     }
 }
 
 android {
-    compileSdkVersion 29
+    compileSdkVersion 28
+    buildToolsVersion "28.0.3"
 
     defaultConfig {
         applicationId "com.udacity.gradle.builditbigger"
-        minSdkVersion 14
-        targetSdkVersion 29
+        minSdkVersion 16
+        targetSdkVersion 28
         versionCode 1
         versionName "1.0"
         multiDexEnabled true
@@ -30,45 +31,41 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    flavorDimensions 'dev'
+    productFlavors {
+        free {
+            dimension = 'dev'
+            applicationId = 'com.udacity.gradle.builditbigger.free'
+            targetSdkVersion 29
+            minSdkVersion 16
+        }
+        paid {
+            dimension = 'dev'
+            applicationId = 'com.udacity.gradle.builditbigger.paid'
+            targetSdkVersion 29
+            minSdkVersion 16
+        }
+    }
 }
+
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation project(':displayjokes')
-//    implementation proj ect(':javaJokes')
     endpointsServer project(path: ':backend', configuration: 'endpoints')
-//    implementation 'androidx.core:core:1.0.0'
-    implementation 'com.google.android.material:material:1.0.0'
+    implementation 'androidx.appcompat:appcompat:1.0.0'
     implementation 'com.google.android.gms:play-services-ads:11.8.0'
-    implementation 'com.google.api-client:google-api-client:1.28.0'
-    implementation 'com.google.http-client:google-http-client-android:1.28.0'
+    implementation 'com.google.api-client:google-api-client:1.23.0'
+    implementation 'com.google.http-client:google-http-client-android:1.23.0'
     implementation 'com.google.code.findbugs:jsr305:3.0.1'
 
-    androidTestImplementation 'com.android.support.test:runner:1.1.0'
-    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.1.0'
-    //androidTestImplementation 'com.android.support:support-annotations:25.1.0'
-//    androidTestImplementation 'androidx.annotation:annotation:1.0.0'
-    androidTestImplementation 'com.android.support.test.espresso:espresso-intents:3.0.2'
-    androidTestImplementation 'com.android.support.test:rules:0.5'
-    //androidTestImplementation 'com.android.support.test:runner:0.5'
-    androidTestImplementation 'com.android.support.test.espresso:espresso-contrib:2.0'
-    androidTestImplementation 'org.mockito:mockito-core:1.10.19'
-//    androidTestImplementation('androidx.test.espresso:espresso-core:3.1.0', {
-//        exclude group: 'com.android.support', module: 'support-annotations'
-//    })
+    implementation project(':javaJokes')
+    implementation project(':displayjokes')
 
-    testImplementation 'junit:junit:4.12'
-    implementation 'androidx.annotation:annotation:1.0.0'
-}
-android {
-    packagingOptions {
-        exclude 'META-INF/DEPENDENCIES'
-        exclude 'META-INF/LICENSE'
-        exclude 'META-INF/LICENSE.txt'
-        exclude 'META-INF/license.txt'
-        exclude 'META-INF/NOTICE'
-        exclude 'META-INF/NOTICE.txt'
-        exclude 'META-INF/notice.txt'
-        exclude 'META-INF/ASL2.0'
-    }
+    androidTestImplementation('androidx.test.espresso:espresso-core:3.1.0', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+    testImplementation group: 'org.mockito', name: 'mockito-core', version: '2.1.0'
+    androidTestImplementation "org.mockito:mockito-core:1.10.19"
+    androidTestImplementation "com.google.dexmaker:dexmaker:1.2"
+    androidTestImplementation "com.google.dexmaker:dexmaker-mockito:1.2"
 }
