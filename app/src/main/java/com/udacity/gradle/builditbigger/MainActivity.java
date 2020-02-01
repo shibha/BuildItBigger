@@ -1,6 +1,8 @@
 package com.udacity.gradle.builditbigger;
 
 import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 import android.util.Pair;
@@ -43,8 +45,14 @@ public class MainActivity extends AppCompatActivity {
 
     public void tellJoke(View view) {
 
-        new EndpointsAsyncTask().execute(new Pair<Context, String>(this, "Default"));
+        ConnectivityManager cm = (ConnectivityManager) getApplicationContext()
+                .getSystemService(Context.CONNECTIVITY_SERVICE);
 
+        boolean isConnected = cm.getActiveNetworkInfo() != null && cm.getActiveNetworkInfo().isConnected();
+
+        if(isConnected) {
+            new EndpointsAsyncTask().execute(new Pair<Context, String>(this, "Default"));
+        }
     }
 
 

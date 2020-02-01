@@ -21,7 +21,7 @@ public class EndpointsAsyncTaskTest  {
         final Object syncObject = new Object();
         Context context = mock(Context.class);
         EndpointsAsyncTestTask task = new EndpointsAsyncTestTask();
-        task.execute(new Pair<Context, String>(context, "DefaultTest"));
+        task.execute(new Pair<>(context, "DefaultTest"));
 
 
         task.setAsyncTaskCallback(new EndpointsAsyncTestTask.AsyncTaskCallBack() {
